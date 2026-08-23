@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Listings — Shri Sai Dwar Housing Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="configBannerRoot"></div>
+
+<div class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo" style="cursor:pointer;">
+      <span class="hi">श्री साईं द्वार</span>
+      <span class="main">Shri Sai Dwar</span>
+      <span class="sub">Housing Group</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="listings.html?type=sale" onclick="setFilter('sale')">Buy</a>
+      <a href="index.html#sell">Sell</a>
+      <a href="listings.html?type=rent" onclick="setFilter('rent')">Rent</a>
+      <a href="index.html#team">Team</a>
+      <a href="index.html#guide">Book Consultation</a>
+      <a href="index.html#footer">Contact</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" onclick="toggleMobileNav()" aria-label="Menu" aria-expanded="false">☰</button>
+  </div>
+</div>
+
+<div class="section-head reveal" style="max-width:1220px; margin:40px auto 0; padding:0 24px;">
+  <div><div class="eyebrow">ALL PROPERTIES</div><h2>Explore properties</h2></div>
+</div>
+
+<div class="search-panel">
+  <div class="search-card">
+    <div class="tab-group" id="typeTabs">
+      <button class="tab-btn active" data-v="all" onclick="setFilter('all')">All</button>
+      <button class="tab-btn" data-v="sale" onclick="setFilter('sale')">Buy</button>
+      <button class="tab-btn" data-v="rent" onclick="setFilter('rent')">Rent</button>
+    </div>
+    <div class="field"><label>City / Locality</label><input type="text" id="searchCity" placeholder="e.g. Sector 12, Dwarka" oninput="renderListings()" /></div>
+    <div class="field"><label>Property Type</label>
+      <select id="searchPtype" onchange="renderListings()">
+        <option value="">Any</option><option value="Apartment">Apartment</option>
+        <option value="Villa">Villa / Bungalow</option><option value="Plot">Plot / Land</option>
+        <option value="Commercial">Commercial</option>
+      </select>
+    </div>
+    <div class="field"><label>BHK</label>
+      <select id="searchBhk" onchange="renderListings()">
+        <option value="">Any</option><option value="1">1 BHK</option><option value="2">2 BHK</option>
+        <option value="3">3 BHK</option><option value="4">4+ BHK</option>
+      </select>
+    </div>
+    <button class="btn-search" onclick="document.getElementById('listingsGrid').scrollIntoView({behavior:'smooth'})">Search</button>
+  </div>
+</div>
+
+<div id="listings"></div>
+<div class="listings-wrap reveal">
+  <div id="listingsGrid" class="grid"></div>
+</div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div><h4>Shri Sai Dwar Housing Group</h4><p>Buy, rent, and invest with a team rooted in the neighborhoods we list.</p></div>
+    <div><h4>Contact</h4><p>Dwarka Sub City, New Delhi<br/>+91 98765 43210<br/>hello@shrisaidwar.example</p></div>
+    <div><h4>Explore</h4><p><a href="index.html">Back to Home</a><br/>
+      <a href="index.html#sell">Sell your property</a></p></div>
+  </div>
+  <div class="footer-bottom">© 2026 Shri Sai Dwar Housing Group. All rights reserved.</div>
+</footer>
+
+<div id="detailModalRoot"></div>
+<div id="toastRoot"></div>
+
+<script src="supabase-config.js"></script>
+<script>
+/* ============================= SUPABASE (read-only, public) ============================= */
+const SUPABASE_URL = window.SSD_SUPABASE_URL;
+const SUPABASE_ANON_KEY = window.SSD_SUPABASE_ANON_KEY;
+
+let sb = null;
+let supabaseReady = false;
+
+async function initSupabase(){
+  const configured = !SUPABASE_URL.includes('YOUR_SUPABASE') && !SUPABASE_ANON_KEY.includes('YOUR_SUPABASE');
+  if(!configured){ showConfigBanner(); return false; }
+  try{
+    const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2');
+    sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    supabaseReady = true;
+    return true;
+  }catch(e){
+    showConfigBanner('Could not connect to Supabase — check your URL/key and internet connection.');
+    return false;
+  }
+}
+function showConfigBanner(msg){
+  document.getElementById('configBannerRoot').innerHTML = `
+    <div class="config-banner">${msg || 'Supabase isn\'t connected yet — set <b>SUPABASE_URL</b> and <b>SUPABASE_ANON_KEY</b> in supabase-config.js to go live.'}</div>`;
+}
+
+/* ============================= STATE ============================= */
+let listings = [];
+let currentFilter = 'all';
+let galleryIndex = 0;
+
+/* ============================= DATA LAYER ============================= */
+function mapPropertyFromDb(p){
+  return {
+    id:p.id, title:p.title, listingType:p.listing_type, propertyType:p.property_type,
+    price:p.price, city:p.city, locality:p.locality, bhk:p.bhk, bathrooms:p.bathrooms, area:p.area,
+    description:p.description, amenities:p.amenities||[], tag:p.tag||'none',
+    images:p.images||[], video:p.video_url||null, createdAt: p.created_at ? new Date(p.created_at).getTime() : Date.now()
+  };
+}
+async function loadListings(){
+  if(!sb){ listings = []; return; }
+  try{
+    const { data, error } = await sb.from('properties').select('*').order('created_at', { ascending:false });
+    if(error) throw error;
+    listings = (data||[]).map(mapPropertyFromDb);
+  }catch(e){ listings = []; }
+}
+
+/* ============================= UTIL ============================= */
+function showToast(msg, ms=3200){ const root = document.getElementById('toastRoot'); root.innerHTML = `<div class="toast">${msg}</div>`; setTimeout(()=>{ root.innerHTML=''; }, ms); }
+function formatPrice(l){
+  if(l.listingType === 'rent') return `₹${Number(l.price).toLocaleString('en-IN')}<span>/month</span>`;
+  const p = Number(l.price);
+  if(p >= 10000000) return `₹${(p/10000000).toFixed(2)} Cr`;
+  if(p >= 100000) return `₹${(p/100000).toFixed(1)} L`;
+  return `₹${p.toLocaleString('en-IN')}`;
+}
+function setupReveal(){
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
+  }, { threshold:0.1 });
+  els.forEach(el=>io.observe(el));
+}
+function toggleMobileNav(){
+  const nav = document.getElementById('navLinks');
+  const btn = document.getElementById('navToggle');
+  const isOpen = nav.classList.toggle('mobile-open');
+  btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+}
+document.addEventListener('click', function(e){
+  const nav = document.getElementById('navLinks');
+  if(nav && nav.classList.contains('mobile-open') && e.target.tagName === 'A' && nav.contains(e.target)){
+    nav.classList.remove('mobile-open');
+    document.getElementById('navToggle').setAttribute('aria-expanded','false');
+  }
+});
+
+/* ============================= FILTER / RENDER ============================= */
+function setFilter(v){
+  currentFilter = v;
+  document.querySelectorAll('#typeTabs .tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.v === v));
+  renderListings();
+}
+function getFiltered(){
+  const city = (document.getElementById('searchCity')?.value || '').toLowerCase().trim();
+  const ptype = document.getElementById('searchPtype')?.value || '';
+  const bhk = document.getElementById('searchBhk')?.value || '';
+  return listings.filter(l=>{
+    if(currentFilter !== 'all' && l.listingType !== currentFilter) return false;
+    if(city && !(`${l.city} ${l.locality}`.toLowerCase().includes(city))) return false;
+    if(ptype && l.propertyType !== ptype) return false;
+    if(bhk){ if(bhk==='4'){ if(Number(l.bhk) < 4) return false; } else if(Number(l.bhk) !== Number(bhk)) return false; }
+    return true;
+  });
+}
+function renderListings(){
+  const grid = document.getElementById('listingsGrid');
+  const items = getFiltered();
+  if(listings.length === 0){
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><h3>New properties coming soon</h3><p>We're onboarding properties right now — check back shortly, or reach out to our team directly.</p></div>`;
+    return;
+  }
+  if(items.length === 0){
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><h3>No matches for these filters</h3><p>Try widening your search — a different locality, budget, or property type.</p></div>`;
+    return;
+  }
+  grid.innerHTML = items.map(l=>{
+    const img = (l.images && l.images[0]) ? l.images[0] : '';
+    return `
+    <div class="card">
+      <div class="card-media">
+        ${img ? `<img src="${img}" alt="${l.title}"/>` : `<div style="width:100%;height:100%;background:linear-gradient(135deg,#dcd3bd,#c9bfa2);"></div>`}
+        <span class="badge ${l.listingType}">${l.listingType === 'sale' ? 'For Sale' : 'For Rent'}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-price mono">${formatPrice(l)}</div>
+        <div class="card-title">${l.title}</div>
+        <div class="card-loc">📍 ${l.locality}, ${l.city}</div>
+        <div class="card-stats"><span><b>${l.bhk}</b> BHK</span><span><b>${l.bathrooms||'—'}</b> Bath</span><span><b>${l.area}</b> sqft</span></div>
+        <div class="card-cta"><span style="font-size:12px;color:var(--ink-soft);">${l.propertyType}</span><button onclick="openDetail('${l.id}')">View details →</button></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ============================= DETAIL MODAL ============================= */
+function openDetail(id){
+  const l = listings.find(x=>x.id===id); if(!l) return;
+  galleryIndex = 0; renderDetailModal(l);
+  history.replaceState(null, '', `?id=${id}`);
+}
+function renderDetailModal(l){
+  const imgs = (l.images && l.images.length) ? l.images : [];
+  document.getElementById('detailModalRoot').innerHTML = `
+  <div class="modal-overlay" onclick="if(event.target===this) closeDetail()">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeDetail()">✕</button>
+      <div class="gallery">
+        ${imgs.length ? `<img id="galleryImg" src="${imgs[0]}"/>` : `<div style="width:100%;height:100%;background:#333;"></div>`}
+        ${imgs.length > 1 ? `<button class="gallery-nav prev" onclick="shiftGallery(-1)">‹</button><button class="gallery-nav next" onclick="shiftGallery(1)">›</button>
+        <div class="gallery-dots" id="galleryDots">${imgs.map((_,i)=>`<span class="${i===0?'active':''}"></span>`).join('')}</div>` : ''}
+      </div>
+      <div class="detail-body">
+        <div class="detail-top">
+          <div><div class="detail-title" style="font-family:'Fraunces',serif; font-weight:600;">${l.title}</div><div class="detail-loc">📍 ${l.locality}, ${l.city}</div></div>
+          <div class="detail-price mono">${formatPrice(l)}</div>
+        </div>
+        <div class="detail-stats">
+          <div><b>${l.bhk}</b><span>BHK</span></div><div><b>${l.bathrooms||'—'}</b><span>Bath</span></div>
+          <div><b>${l.area}</b><span>Sqft</span></div><div><b>${l.propertyType}</b><span>Type</span></div>
+        </div>
+        <div class="detail-section"><h3>About this property</h3><p style="color:var(--ink-soft); line-height:1.7;">${l.description || 'No description provided yet.'}</p></div>
+        ${l.amenities && l.amenities.length ? `<div class="detail-section"><h3>Amenities</h3><div class="amenity-chips">${l.amenities.map(a=>`<span>${a}</span>`).join('')}</div></div>` : ''}
+        ${l.video ? `<div class="detail-section detail-video"><h3>Property Walkthrough</h3><video controls src="${l.video}"></video></div>` : ''}
+        <div class="enquiry-box">
+          <h3 style="margin-top:0;">Enquire about this property</h3>
+          <input type="text" id="enqName" placeholder="Your name" />
+          <input type="text" id="enqPhone" placeholder="Phone number" />
+          <textarea id="enqMsg" placeholder="Message (optional)"></textarea>
+          <button class="btn-primary" onclick="submitEnquiry('${l.id}','${l.title.replace(/'/g,"\\'")}')">Send enquiry</button>
+          <div class="enquiry-note">Your details go straight to our team's admin panel.</div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+  window._galleryImages = imgs;
+}
+function shiftGallery(dir){
+  const imgs = window._galleryImages || []; if(!imgs.length) return;
+  galleryIndex = (galleryIndex + dir + imgs.length) % imgs.length;
+  document.getElementById('galleryImg').src = imgs[galleryIndex];
+  document.querySelectorAll('#galleryDots span').forEach((d,i)=>d.classList.toggle('active', i===galleryIndex));
+}
+function closeDetail(){
+  document.getElementById('detailModalRoot').innerHTML = '';
+  const url = new URL(window.location.href); url.searchParams.delete('id');
+  history.replaceState(null, '', url.pathname + (url.search || ''));
+}
+
+async function submitEnquiry(propId, propTitle){
+  const name = document.getElementById('enqName').value.trim();
+  const phone = document.getElementById('enqPhone').value.trim();
+  const message = document.getElementById('enqMsg').value.trim();
+  if(!name || !phone){ showToast('Please add your name and phone number.'); return; }
+  if(!sb){ showToast('Site is not connected to the database yet — enquiry not saved.'); return; }
+  try{
+    const { error } = await sb.from('leads').insert({ type:'enquiry', name, phone, message, ref:propTitle, property_id: propId || null });
+    if(error) throw error;
+    showToast('Enquiry received — our team will reach out.'); closeDetail();
+  }catch(e){ showToast('Could not send enquiry — please try again.'); }
+}
+
+/* ============================= INIT ============================= */
+function applyUrlParams(){
+  const params = new URLSearchParams(window.location.search);
+  const type = params.get('type');
+  if(type === 'sale' || type === 'rent') setFilter(type); else setFilter('all');
+  const id = params.get('id');
+  if(id){ const l = listings.find(x=>x.id===id); if(l) openDetail(id); }
+}
+async function init(){
+  document.getElementById('listingsGrid').innerHTML = `<div style="grid-column:1/-1;text-align:center;color:var(--ink-soft);padding:40px;">Loading properties…</div>`;
+  await initSupabase();
+  await loadListings();
+  renderListings();
+  applyUrlParams();
+  setupReveal();
+}
+init();
+</script>
+</body>
+</html>
