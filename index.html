@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shri Sai Dwar Housing Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="configBannerRoot"></div>
+
+<div class="nav">
+  <div class="nav-inner">
+    <div class="logo">
+      <span class="hi">श्री साईं द्वार</span>
+      <span class="main">Shri Sai Dwar</span>
+      <span class="sub">Housing Group</span>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="listings.html?type=sale">Buy</a>
+      <a href="#sell">Sell</a>
+      <a href="listings.html?type=rent">Rent</a>
+      <a href="#team">Team</a>
+      <a href="#guide">Book Consultation</a>
+      <a href="#footer">Contact</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" onclick="toggleMobileNav()" aria-label="Menu" aria-expanded="false">☰</button>
+  </div>
+</div>
+
+<div class="hero-band">
+  <div class="hero-skyline" aria-hidden="true">
+    <svg viewBox="0 0 1400 420" preserveAspectRatio="xMaxYMax slice" xmlns="http://www.w3.org/2000/svg">
+      <rect x="900" y="140" width="70" height="280" fill="rgba(224,145,44,0.10)"/>
+      <rect x="985" y="90" width="90" height="330" fill="rgba(224,145,44,0.14)"/>
+      <rect x="1090" y="160" width="60" height="260" fill="rgba(224,145,44,0.10)"/>
+      <rect x="1165" y="60" width="100" height="360" fill="rgba(224,145,44,0.16)"/>
+      <rect x="1280" y="130" width="75" height="290" fill="rgba(224,145,44,0.11)"/>
+      <rect x="985" y="90" width="90" height="20" fill="rgba(224,145,44,0.22)"/>
+      <rect x="1165" y="60" width="100" height="20" fill="rgba(224,145,44,0.26)"/>
+    </svg>
+  </div>
+  <div class="hero-band-inner">
+    <div class="hero-content">
+      <div class="eyebrow on-dark">TRUSTED &middot; TRANSPARENT &middot; COMMITTED</div>
+      <h1 class="hero-title">Every <em>dwar</em><br/>leads home.</h1>
+      <p class="hero-lead">A data-backed way to buy, rent, or invest — verified listings, transparent pricing, and a family team that stays with you past the registry.</p>
+
+      <div class="hero-trust-row">
+        <div class="trust-item">
+          <div class="trust-ic"><svg viewBox="0 0 24 24"><path d="M12 2 2 6v6c0 5.2 3.8 9.8 10 12 6.2-2.2 10-6.8 10-12V6l-10-4Z"/></svg></div>
+          <div><b>Verified Listings</b><span>Every property checked</span></div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9"/></svg></div>
+          <div><b>Transparent Pricing</b><span>No hidden charges</span></div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-ic"><svg viewBox="0 0 24 24"><path d="M12 21c-4-3-8-6.5-8-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 4.5-4 8-8 11"/></svg></div>
+          <div><b>Best Deals</b><span>Value for every budget</span></div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-ic"><svg viewBox="0 0 24 24"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="2" y="14" width="5" height="6" rx="1.5"/><rect x="17" y="14" width="5" height="6" rx="1.5"/></svg></div>
+          <div><b>End-to-End Support</b><span>From search to possession</span></div>
+        </div>
+      </div>
+
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="window.location.href='listings.html'">Explore properties →</button>
+        <button class="btn-outline-dark" onclick="document.getElementById('guide').scrollIntoView({behavior:'smooth'})">Schedule a free consultation</button>
+      </div>
+    </div>
+
+    <div class="hero-badge-card">
+      <div class="hbc-head">
+        <div class="hbc-ic"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></div>
+        <div>Looking for Your <span>Perfect Property?</span></div>
+      </div>
+      <div class="hbc-list">
+        <div class="hbc-row"><span class="hbc-dot"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 8h1M14 8h1M9 12h1M14 12h1M9 16h1M14 16h1"/></svg></span>Apartments &amp; Flats</div>
+        <div class="hbc-row"><span class="hbc-dot"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></span>Villas &amp; Bungalows</div>
+        <div class="hbc-row"><span class="hbc-dot"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg></span>Residential Plots</div>
+        <div class="hbc-row"><span class="hbc-dot"><svg viewBox="0 0 24 24"><path d="M3 20h18M6 20V9l5-3 5 3v11M11 20v-5h2v5"/></svg></span>Commercial Spaces</div>
+      </div>
+      <div class="hbc-contact"><span class="hbc-phone"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg></span>Talk to our property expert today</div>
+      <button class="btn-gold-solid" onclick="document.getElementById('footer').scrollIntoView({behavior:'smooth'})">Contact Us →</button>
+    </div>
+  </div>
+
+  <div class="hero-stats-bar">
+    <div class="stat"><b>500+</b><span>Properties Listed</span></div>
+    <div class="stat"><b>300+</b><span>Happy Clients</span></div>
+    <div class="stat"><b>10+</b><span>Years of Local Experience</span></div>
+    <div class="stat"><b>100%</b><span>Verified Listings</span></div>
+  </div>
+</div>
+
+<!-- HIGHLIGHTS -->
+<div class="highlights-wrap reveal">
+  <div class="section-head" style="padding:0; margin-bottom:22px;">
+    <div><div class="eyebrow">WHY INVEST WITH US</div><h2>Built on trust, backed by process</h2></div>
+  </div>
+  <div class="highlights-grid" id="highlightsGrid"></div>
+</div>
+
+<!-- TRENDING -->
+<div id="trendingSection" class="trending-wrap reveal hidden">
+  <div class="section-head" style="padding:0; margin-bottom:20px;">
+    <div><div class="eyebrow">CURATED BY OUR TEAM</div><h2>Trending right now</h2></div>
+  </div>
+  <div class="trending-scroll" id="trendingGrid"></div>
+</div>
+
+<!-- LISTINGS CTA -->
+<div id="listings" class="listings-cta-wrap reveal" style="max-width:1220px; margin:60px auto; padding:0 24px; text-align:center;">
+  <div class="eyebrow" style="justify-content:center;">CURRENT PROPERTIES</div>
+  <h2 style="margin:10px 0 16px;">Explore every property we have listed</h2>
+  <p style="color:var(--ink-soft); max-width:560px; margin:0 auto 22px;">Browse all sale and rent listings with full filters for city, property type, and BHK on our dedicated listings page.</p>
+  <button class="btn-primary" onclick="window.location.href='listings.html'">View all listings →</button>
+</div>
+
+<!-- SELL -->
+<div id="sell" class="sell-wrap reveal">
+  <div class="sell-card">
+    <div>
+      <div class="eyebrow">FOR PROPERTY OWNERS</div>
+      <h2>Want to sell or list your property?</h2>
+      <p class="sell-lead">Tell us a bit about your property — our team will get in touch to discuss valuation, listing, and next steps. Listing your property with us is free — brokerage applies only once the sale is finalized.</p>
+    </div>
+    <div class="sell-form">
+      <div class="sell-badge">✓ Zero listing fee — brokerage only on successful sale</div>
+      <input type="text" id="sellName" placeholder="Your name" />
+      <input type="text" id="sellPhone" placeholder="Phone number" />
+      <input type="text" id="sellLocation" placeholder="Property location (e.g. Sector 12, Dwarka)" />
+      <textarea id="sellDetails" placeholder="Brief details — property type, size, expected price"></textarea>
+      <button class="btn-primary" onclick="submitSellLead()" style="width:100%;">Get in touch</button>
+      <div class="enquiry-note" style="text-align:center;">Your details go straight to our team's admin panel.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TEAM -->
+<div id="team" class="team-wrap reveal">
+  <div class="section-head" style="padding:0; margin-bottom:22px;">
+    <div><div class="eyebrow">THE PEOPLE BEHIND IT</div><h2>Meet the family running things</h2></div>
+  </div>
+  <div class="team-grid" id="teamGrid"></div>
+</div>
+
+<!-- CONSULTATION -->
+<div id="guide" class="guide-band reveal">
+  <div class="guide-inner">
+    <div>
+      <div class="eyebrow on-dark">FREE 1:1 CONSULTATION</div>
+      <h2>Book a free consultation</h2>
+      <p>Talk to our team before you decide — locality growth signals, paperwork checklist, budgeting, and typical costs beyond the sale price. No obligation.</p>
+    </div>
+    <div class="guide-form">
+      <input type="text" id="guideName" placeholder="Your name" />
+      <input type="text" id="guidePhone" placeholder="Phone number" />
+      <input type="email" id="guideEmail" placeholder="Email address" />
+      <button onclick="submitGuideLead()">Book my consultation</button>
+      <div class="guide-note">We'll reach out directly — no spam, ever.</div>
+    </div>
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div><h4>Shri Sai Dwar Housing Group</h4><p>Buy, rent, and invest with a team rooted in the neighborhoods we list.</p></div>
+    <div><h4>Contact</h4><p>Dwarka Sub City, New Delhi<br/>+91 98765 43210<br/>hello@shrisaidwar.example</p></div>
+    <div><h4>Explore</h4><p><a href="listings.html?type=sale">Properties for Sale</a><br/>
+      <a href="listings.html?type=rent">Properties for Rent</a></p></div>
+  </div>
+  <div class="footer-bottom">© 2026 Shri Sai Dwar Housing Group. All rights reserved.</div>
+</footer>
+
+<div id="adminLoginRoot"></div>
+<div id="adminDashboardRoot"></div>
+<div id="toastRoot"></div>
+
+<script src="supabase-config.js"></script>
+<script>
+/* ============================= SUPABASE CONFIG ============================= */
+/* Paste your real values here (Settings → API in your Supabase project). */
+const SUPABASE_URL = window.SSD_SUPABASE_URL;
+const SUPABASE_ANON_KEY = window.SSD_SUPABASE_ANON_KEY;
+const MEDIA_BUCKET = window.SSD_MEDIA_BUCKET;
+
+let sb = null;
+let adminSession = null;
+let supabaseReady = false;
+
+async function initSupabase(){
+  const configured = !SUPABASE_URL.includes('YOUR_SUPABASE') && !SUPABASE_ANON_KEY.includes('YOUR_SUPABASE');
+  if(!configured){ showConfigBanner(); return false; }
+  try{
+    const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2');
+    sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const { data } = await sb.auth.getSession();
+    adminSession = data?.session || null;
+    sb.auth.onAuthStateChange((_event, session)=>{ adminSession = session; });
+    supabaseReady = true;
+    return true;
+  }catch(e){
+    showConfigBanner('Could not connect to Supabase — check your URL/key and internet connection.');
+    return false;
+  }
+}
+function showConfigBanner(msg){
+  document.getElementById('configBannerRoot').innerHTML = `
+    <div class="config-banner">${msg || 'Supabase isn\'t connected yet — set <b>SUPABASE_URL</b> and <b>SUPABASE_ANON_KEY</b> at the top of the script to go live.'}</div>`;
+}
+
+/* ============================= STATE ============================= */
+let listings = [];
+let highlights = [
+  { title:'Verified & Legally Vetted', description:'Every property is checked for clear title and paperwork before it goes live.' },
+  { title:'Dedicated Relationship Manager', description:'One point of contact from first visit to registry.' },
+  { title:'Transparent Pricing', description:'No hidden charges, no last-minute surprises.' },
+  { title:'End-to-End Support', description:'Home loans, documentation, and possession — we stay with you.' }
+];
+let team = [];
+let leads = [];
+
+let editingId = null;
+let pendingImages = [];
+let pendingVideo = null;
+let editingTeamId = null;
+let pendingTeamPhoto = null;
+let adminTab = 'listings';
+
+/* ============================= DATA LAYER (Supabase) ============================= */
+function mapPropertyFromDb(p){
+  return {
+    id:p.id, title:p.title, listingType:p.listing_type, propertyType:p.property_type,
+    price:p.price, city:p.city, locality:p.locality, bhk:p.bhk, bathrooms:p.bathrooms, area:p.area,
+    description:p.description, amenities:p.amenities||[], tag:p.tag||'none',
+    images:p.images||[], video:p.video_url||null, createdAt: p.created_at ? new Date(p.created_at).getTime() : Date.now()
+  };
+}
+async function loadAll(){
+  if(!sb){ listings = []; team = []; leads = []; return; }
+  try{
+    const { data, error } = await sb.from('properties').select('*').order('created_at', { ascending:false });
+    if(error) throw error;
+    listings = (data||[]).map(mapPropertyFromDb);
+  }catch(e){ listings = []; }
+
+  try{
+    const { data, error } = await sb.from('highlights').select('*').order('sort_order', { ascending:true });
+    if(!error && data && data.length) highlights = data.map(h=>({ id:h.id, title:h.title, description:h.description }));
+  }catch(e){}
+
+  try{
+    const { data, error } = await sb.from('team_members').select('*').order('sort_order', { ascending:true });
+    if(error) throw error;
+    team = (data||[]).map(t=>({ id:t.id, name:t.name, role:t.role, bio:t.bio, photo:t.photo_url }));
+  }catch(e){ team = []; }
+
+  try{
+    const { data, error } = await sb.from('leads').select('*').order('created_at', { ascending:false });
+    if(error) throw error;
+    leads = (data||[]).map(l=>({ id:l.id, type:l.type, name:l.name, phone:l.phone, email:l.email, message:l.message, ref:l.ref, createdAt:new Date(l.created_at).getTime() }));
+  }catch(e){ leads = []; } // anonymous visitors can't read leads (RLS) — expected until admin logs in
+}
+
+/* ---- media upload helper ---- */
+async function uploadToStorage(blobOrFile, folder, ext){
+  if(!sb) throw new Error('Supabase not configured');
+  const path = `${folder}/${Date.now()}_${Math.random().toString(36).slice(2,8)}.${ext}`;
+  const { error } = await sb.storage.from(MEDIA_BUCKET).upload(path, blobOrFile, { upsert:false });
+  if(error) throw error;
+  const { data } = sb.storage.from(MEDIA_BUCKET).getPublicUrl(path);
+  return data.publicUrl;
+}
+
+/* ============================= UTIL ============================= */
+function showToast(msg, ms=3200){ const root = document.getElementById('toastRoot'); root.innerHTML = `<div class="toast">${msg}</div>`; setTimeout(()=>{ root.innerHTML=''; }, ms); }
+function formatPrice(l){
+  if(l.listingType === 'rent') return `₹${Number(l.price).toLocaleString('en-IN')}<span>/month</span>`;
+  const p = Number(l.price);
+  if(p >= 10000000) return `₹${(p/10000000).toFixed(2)} Cr`;
+  if(p >= 100000) return `₹${(p/100000).toFixed(1)} L`;
+  return `₹${p.toLocaleString('en-IN')}`;
+}
+function setupReveal(){
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
+  }, { threshold:0.1 });
+  els.forEach(el=>io.observe(el));
+}
+
+/* ============================= HIGHLIGHTS ============================= */
+function renderHighlights(){
+  document.getElementById('highlightsGrid').innerHTML = highlights.map((h,i)=>`
+    <div class="highlight-card"><div class="ix">0${i+1}</div><h3>${h.title}</h3><p>${h.description}</p></div>
+  `).join('');
+}
+
+/* ============================= TRENDING ============================= */
+function renderTrending(){
+  const tagged = listings.filter(l=>l.tag && l.tag !== 'none');
+  const section = document.getElementById('trendingSection');
+  if(tagged.length === 0){ section.classList.add('hidden'); return; }
+  section.classList.remove('hidden');
+  document.getElementById('trendingGrid').innerHTML = tagged.slice(0,6).map(l=>{
+    const img = (l.images && l.images[0]) ? l.images[0] : '';
+    const tagLabel = l.tag === 'trending' ? 'Trending' : l.tag === 'new-launch' ? 'New Launch' : 'Best Value';
+    return `
+    <div class="trend-card" onclick="window.location.href='listings.html?id=${l.id}'">
+      ${img ? `<img src="${img}"/>` : `<div class="noimg"></div>`}
+      <div class="trend-tag ${l.tag}">${tagLabel}</div>
+      <div class="trend-overlay">
+        <div class="trend-title">${l.title}</div>
+        <div class="trend-meta">${l.locality}, ${l.city} · ${formatPrice(l).replace(/<[^>]+>/g,'')}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ============================= LISTINGS FILTER / RENDER ============================= */
+function toggleMobileNav(){
+  const nav = document.getElementById('navLinks');
+  const btn = document.getElementById('navToggle');
+  const isOpen = nav.classList.toggle('mobile-open');
+  btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+}
+document.addEventListener('click', function(e){
+  const nav = document.getElementById('navLinks');
+  if(nav && nav.classList.contains('mobile-open') && e.target.tagName === 'A' && nav.contains(e.target)){
+    nav.classList.remove('mobile-open');
+    document.getElementById('navToggle').setAttribute('aria-expanded','false');
+  }
+});
+
+/* Full filter/grid/detail-modal/enquiry logic now lives in listings.html */
+async function submitGuideLead(){
+  const name = document.getElementById('guideName').value.trim();
+  const phone = document.getElementById('guidePhone').value.trim();
+  const email = document.getElementById('guideEmail').value.trim();
+  if(!name || !phone){ showToast('Please add your name and phone number.'); return; }
+  if(!sb){ showToast('Site is not connected to the database yet — request not saved.'); return; }
+  try{
+    const { error } = await sb.from('leads').insert({ type:'consultation', name, phone, email, ref:'Consultation Request' });
+    if(error) throw error;
+    showToast('Sent! We will call you shortly to schedule your consultation.');
+    document.getElementById('guideName').value=''; document.getElementById('guidePhone').value=''; document.getElementById('guideEmail').value='';
+  }catch(e){ showToast('Could not send request — please try again.'); }
+}
+async function submitSellLead(){
+  const name = document.getElementById('sellName').value.trim();
+  const phone = document.getElementById('sellPhone').value.trim();
+  const location = document.getElementById('sellLocation').value.trim();
+  const details = document.getElementById('sellDetails').value.trim();
+  if(!name || !phone){ showToast('Please add your name and phone number.'); return; }
+  if(!sb){ showToast('Site is not connected to the database yet — request not saved.'); return; }
+  try{
+    const { error } = await sb.from('leads').insert({ type:'sell-inquiry', name, phone, message:details, ref: location || 'Not specified' });
+    if(error) throw error;
+    showToast('Thanks! Our team will reach out about your property.');
+    document.getElementById('sellName').value=''; document.getElementById('sellPhone').value='';
+    document.getElementById('sellLocation').value=''; document.getElementById('sellDetails').value='';
+  }catch(e){ showToast('Could not send request — please try again.'); }
+}
+
+/* ============================= TEAM ============================= */
+function renderTeam(){
+  const grid = document.getElementById('teamGrid');
+  if(team.length === 0){ grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><h3>Team profiles coming soon</h3><p>Add family members and key staff from the Admin panel.</p></div>`; return; }
+  grid.innerHTML = team.map(t=>`
+    <div class="team-card">
+      <div class="team-photo">${t.photo ? `<img src="${t.photo}"/>` : ''}</div>
+      <div class="team-info"><div class="name">${t.name}</div><div class="role">${t.role}</div><div class="bio">${t.bio||''}</div></div>
+    </div>`).join('');
+}
+
+/* ============================= ADMIN LOGIN ============================= */
+function openAdminLogin(){
+  if(!sb){ showToast("Site isn't connected to Supabase yet — add your credentials at the top of the script first."); return; }
+  document.getElementById('adminLoginRoot').innerHTML = `
+  <div class="admin-login-overlay" onclick="if(event.target===this) closeAdminLogin()">
+    <div class="admin-login-card">
+      <button class="admin-close" onclick="closeAdminLogin()">✕</button>
+      <div class="eyebrow">STAFF ONLY</div>
+      <h2>Admin Access</h2>
+      <div class="login-error" id="loginError">Incorrect email or password.</div>
+      <input type="email" id="adminEmailInput" placeholder="Email" onkeydown="if(event.key==='Enter') document.getElementById('adminPassInput').focus()"/>
+      <input type="password" id="adminPassInput" placeholder="Password" onkeydown="if(event.key==='Enter') tryAdminLogin()"/>
+      <button class="submit" onclick="tryAdminLogin()">Enter Dashboard</button>
+      <div class="admin-hint">Sign in with the admin account created in your Supabase project (Authentication → Users).</div>
+    </div>
+  </div>`;
+  setTimeout(()=>document.getElementById('adminEmailInput')?.focus(), 50);
+}
+function closeAdminLogin(){ document.getElementById('adminLoginRoot').innerHTML=''; if(window.location.hash==='#admin'){ history.replaceState(null,'',window.location.pathname+window.location.search); } }
+async function tryAdminLogin(){
+  const email = document.getElementById('adminEmailInput').value.trim();
+  const password = document.getElementById('adminPassInput').value;
+  try{
+    const { data, error } = await sb.auth.signInWithPassword({ email, password });
+    if(error) throw error;
+    adminSession = data.session;
+    closeAdminLogin(); adminTab='listings';
+    await loadAll(); // re-fetch so leads (admin-only read) populate now that we're authenticated
+    openAdminDashboard();
+  }catch(e){
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
+async function adminLogout(){
+  if(sb) await sb.auth.signOut();
+  adminSession = null;
+  closeAdminDashboard();
+  showToast('Logged out.');
+}
+
+/* ============================= ADMIN DASHBOARD SHELL ============================= */
+function openAdminDashboard(){ document.body.style.overflow = 'hidden'; renderAdminDashboard(); }
+function closeAdminDashboard(){ document.body.style.overflow = ''; document.getElementById('adminDashboardRoot').innerHTML = ''; resetListingForm(); resetTeamForm(); }
+function setAdminTab(t){ adminTab = t; renderAdminDashboard(); }
+
+function renderAdminDashboard(){
+  const total = listings.length;
+  const saleCount = listings.filter(l=>l.listingType==='sale').length;
+  const rentCount = listings.filter(l=>l.listingType==='rent').length;
+  const leadCount = leads.length;
+
+  document.getElementById('adminDashboardRoot').innerHTML = `
+  <div class="admin-view">
+    <div class="admin-inner">
+      <div class="admin-header">
+        <div><div class="eyebrow">ADMIN DASHBOARD</div><h1>Manage the site</h1></div>
+        <div style="display:flex; gap:10px;">
+          <button class="btn-secondary" onclick="closeAdminDashboard()">← Back to site</button>
+          <button class="btn-secondary" onclick="adminLogout()">Logout</button>
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-card"><div class="n">${total}</div><div class="l">Total properties</div></div>
+        <div class="stat-card"><div class="n">${saleCount}</div><div class="l">For sale</div></div>
+        <div class="stat-card"><div class="n">${rentCount}</div><div class="l">For rent</div></div>
+        <div class="stat-card"><div class="n">${leadCount}</div><div class="l">Leads captured</div></div>
+      </div>
+      <div class="admin-tabs">
+        <button class="admin-tab ${adminTab==='listings'?'active':''}" onclick="setAdminTab('listings')">Properties</button>
+        <button class="admin-tab ${adminTab==='stats'?'active':''}" onclick="setAdminTab('stats')">Highlights</button>
+        <button class="admin-tab ${adminTab==='team'?'active':''}" onclick="setAdminTab('team')">Team</button>
+        <button class="admin-tab ${adminTab==='leads'?'active':''}" onclick="setAdminTab('leads')">Leads</button>
+      </div>
+      <div id="adminTabBody"></div>
+    </div>
+  </div>`;
+  renderAdminTabBody();
+}
+function renderAdminTabBody(){
+  const body = document.getElementById('adminTabBody');
+  if(adminTab === 'listings') body.innerHTML = listingsTabHtml();
+  if(adminTab === 'stats') body.innerHTML = statsTabHtml();
+  if(adminTab === 'team') body.innerHTML = teamTabHtml();
+  if(adminTab === 'leads') body.innerHTML = leadsTabHtml();
+  if(adminTab === 'listings'){ renderImageThumbs(); renderVideoPreview(); }
+  if(adminTab === 'team'){ renderTeamPhotoPreview(); }
+}
+
+/* ---------------- LISTINGS TAB ---------------- */
+function listingsTabHtml(){
+  return `
+    <div class="admin-panel">
+      <h3 id="formHeading">Add new property</h3>
+      <div class="form-grid">
+        <div class="form-field"><label>Title</label><input id="f_title" type="text" placeholder="e.g. Sunlit 3BHK near Sector 12, Dwarka" /></div>
+        <div class="form-field"><label>Listing type</label><select id="f_listingType"><option value="sale">For Sale</option><option value="rent">For Rent</option></select></div>
+        <div class="form-field"><label>Property type</label><select id="f_propertyType"><option value="Apartment">Apartment</option><option value="Villa">Villa / Bungalow</option><option value="Plot">Plot / Land</option><option value="Commercial">Commercial</option></select></div>
+        <div class="form-field"><label>Price (₹)</label><input id="f_price" type="number" placeholder="e.g. 8500000 or 25000" /></div>
+        <div class="form-field"><label>City</label><input id="f_city" type="text" placeholder="e.g. New Delhi" /></div>
+        <div class="form-field"><label>Sector / Locality</label><input id="f_locality" type="text" placeholder="e.g. Sector 12, Dwarka" /></div>
+        <div class="form-field"><label>BHK</label><input id="f_bhk" type="number" min="0" placeholder="e.g. 3" /></div>
+        <div class="form-field"><label>Bathrooms</label><input id="f_bathrooms" type="number" min="0" placeholder="e.g. 2" /></div>
+        <div class="form-field"><label>Area (sqft)</label><input id="f_area" type="number" placeholder="e.g. 1450" /></div>
+        <div class="form-field"><label>Trending tag</label>
+          <select id="f_tag"><option value="none">None</option><option value="trending">Trending</option><option value="new-launch">New Launch</option><option value="best-value">Best Value</option></select>
+        </div>
+        <div class="form-field full"><label>Description</label><textarea id="f_description" placeholder="Describe the property..."></textarea></div>
+        <div class="form-field full"><label>Amenities (comma separated)</label><input id="f_amenities" type="text" placeholder="e.g. Parking, Lift, Power Backup, Garden" /></div>
+        <div class="form-field full"><label>Property images</label>
+          <div class="media-box"><div>📷 Upload one or more photos</div>
+            <input type="file" id="f_images" accept="image/*" multiple onchange="handleImageUpload(event)"/>
+            <div class="media-note">Images are compressed and uploaded to storage automatically. Add up to ~6 photos.</div>
+            <div class="thumbs" id="imageThumbs"></div>
+          </div>
+        </div>
+        <div class="form-field full"><label>Walkthrough video (short clip)</label>
+          <div class="media-box"><div>🎬 Upload a short property video (≈30 seconds)</div>
+            <input type="file" id="f_video" accept="video/*" onchange="handleVideoUpload(event)"/>
+            <div class="media-note">Uploads directly to cloud storage. Shorter clips load faster for visitors. One clip per property.</div>
+            <div class="video-preview" id="videoPreview"></div>
+          </div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-primary" onclick="saveListing()">Save property</button>
+        <button class="btn-warn" onclick="resetListingForm()">Clear form</button>
+      </div>
+    </div>
+    <div class="admin-panel">
+      <h3>All properties</h3>
+      ${listings.some(l=>l.isDemo) ? `<p style="color:var(--ink-soft);font-size:13.5px;margin-top:-8px;margin-bottom:16px;">The <b>Sample</b> row below is just a demo — click Edit to turn it into your first real listing, or Delete to remove it.</p>` : ''}
+      ${listings.length === 0 ? `<p style="color:var(--ink-soft);">No properties yet — add your first one above.</p>` : `
+      <table class="admin-table">
+        <thead><tr><th></th><th>Title</th><th>Type</th><th>Tag</th><th>Price</th><th>City</th><th>Actions</th></tr></thead>
+        <tbody>
+          ${listings.map(l=>`
+            <tr>
+              <td>${l.images && l.images[0] ? `<img src="${l.images[0]}"/>` : ''}</td>
+              <td>${l.title}${l.isDemo ? ' <span style="background:var(--navy-deep);color:#fff;font-size:10px;padding:2px 8px;border-radius:999px;margin-left:6px;">Sample</span>' : ''}</td>
+              <td>${l.listingType==='sale'?'Sale':'Rent'}</td>
+              <td>${l.tag && l.tag!=='none' ? l.tag : '—'}</td>
+              <td class="mono">${formatPrice(l).replace(/<[^>]+>/g,'')}</td>
+              <td>${l.city}</td>
+              <td class="row-actions"><button class="edit" onclick="editListing('${l.id}')">Edit</button><button class="del" onclick="deleteListing('${l.id}')">Delete</button></td>
+            </tr>`).join('')}
+        </tbody>
+      </table>`}
+    </div>`;
+}
+function handleImageUpload(e){
+  const files = Array.from(e.target.files || []);
+  if(!sb){ showToast("Site isn't connected to Supabase yet — can't upload images."); e.target.value=''; return; }
+  files.forEach(file=>{
+    const reader = new FileReader();
+    reader.onload = function(ev){
+      const img = new Image();
+      img.onload = async function(){
+        const canvas = document.createElement('canvas');
+        const maxW = 1200; const scale = Math.min(1, maxW / img.width);
+        canvas.width = img.width * scale; canvas.height = img.height * scale;
+        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob(async (blob)=>{
+          if(pendingImages.length >= 6){ showToast('Maximum 6 photos per property.'); return; }
+          showToast('Uploading image…', 1500);
+          try{
+            const url = await uploadToStorage(blob, 'properties', 'jpg');
+            pendingImages.push(url);
+            renderImageThumbs();
+          }catch(err){ showToast('Image upload failed — please try again.'); }
+        }, 'image/jpeg', 0.72);
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+  e.target.value = '';
+}
+function renderImageThumbs(){
+  const el = document.getElementById('imageThumbs'); if(!el) return;
+  el.innerHTML = pendingImages.map((src,i)=>`<div class="thumb"><img src="${src}"/><button onclick="removeImage(${i})">✕</button></div>`).join('');
+}
+function removeImage(i){ pendingImages.splice(i,1); renderImageThumbs(); }
+function handleVideoUpload(e){
+  const file = e.target.files[0]; if(!file) return;
+  if(!sb){ showToast("Site isn't connected to Supabase yet — can't upload video."); e.target.value=''; return; }
+  if(file.size > 60 * 1024 * 1024){ showToast('That video is quite large — consider trimming it for faster loading.'); }
+  (async ()=>{
+    showToast('Uploading video…', 2000);
+    try{
+      const ext = (file.name.split('.').pop() || 'mp4').toLowerCase();
+      const url = await uploadToStorage(file, 'properties/videos', ext);
+      pendingVideo = url;
+      renderVideoPreview();
+    }catch(err){ showToast('Video upload failed — please try again.'); }
+  })();
+  e.target.value = '';
+}
+function renderVideoPreview(){
+  const el = document.getElementById('videoPreview'); if(!el) return;
+  el.innerHTML = pendingVideo ? `<video controls src="${pendingVideo}"></video><br/><button class="btn-warn" style="margin-top:8px;padding:6px 14px;font-size:12px;" onclick="pendingVideo=null;renderVideoPreview();">Remove video</button>` : '';
+}
+function resetListingForm(){
+  editingId = null; pendingImages = []; pendingVideo = null;
+  ['f_title','f_price','f_city','f_locality','f_bhk','f_bathrooms','f_area','f_description','f_amenities'].forEach(id=>{ const el = document.getElementById(id); if(el) el.value = ''; });
+  const tag = document.getElementById('f_tag'); if(tag) tag.value = 'none';
+  const h = document.getElementById('formHeading'); if(h) h.textContent = 'Add new property';
+  renderImageThumbs(); renderVideoPreview();
+}
+async function saveListing(){
+  const title = document.getElementById('f_title').value.trim();
+  const city = document.getElementById('f_city').value.trim();
+  const price = document.getElementById('f_price').value;
+  if(!title || !city || !price){ showToast('Please fill in at least title, city, and price.'); return; }
+  if(!sb){ showToast("Site isn't connected to Supabase yet."); return; }
+  const row = {
+    title, listing_type: document.getElementById('f_listingType').value, property_type: document.getElementById('f_propertyType').value,
+    price: Number(price), city, locality: document.getElementById('f_locality').value.trim(),
+    bhk: Number(document.getElementById('f_bhk').value) || 0, bathrooms: Number(document.getElementById('f_bathrooms').value) || 0,
+    area: Number(document.getElementById('f_area').value) || 0, description: document.getElementById('f_description').value.trim(),
+    amenities: document.getElementById('f_amenities').value.split(',').map(s=>s.trim()).filter(Boolean),
+    tag: document.getElementById('f_tag').value, images: pendingImages.slice(), video_url: pendingVideo
+  };
+  try{
+    let error;
+    if(editingId && !editingId.startsWith('demo_')){
+      ({ error } = await sb.from('properties').update(row).eq('id', editingId));
+    } else {
+      ({ error } = await sb.from('properties').insert(row));
+    }
+    if(error) throw error;
+    showToast(editingId ? 'Property updated.' : 'Property added.');
+    resetListingForm();
+    await loadAll();
+    renderAdminDashboard(); renderPublicSite();
+  }catch(e){ showToast('Could not save property — please try again.'); }
+}
+function editListing(id){
+  const l = listings.find(x=>x.id===id); if(!l) return;
+  editingId = id; pendingImages = (l.images || []).slice(); pendingVideo = l.video || null;
+  document.getElementById('f_title').value = l.title; document.getElementById('f_listingType').value = l.listingType;
+  document.getElementById('f_propertyType').value = l.propertyType; document.getElementById('f_price').value = l.price;
+  document.getElementById('f_city').value = l.city; document.getElementById('f_locality').value = l.locality;
+  document.getElementById('f_bhk').value = l.bhk; document.getElementById('f_bathrooms').value = l.bathrooms;
+  document.getElementById('f_area').value = l.area; document.getElementById('f_description').value = l.description;
+  document.getElementById('f_amenities').value = (l.amenities||[]).join(', ');
+  document.getElementById('f_tag').value = l.tag || 'none';
+  document.getElementById('formHeading').textContent = 'Edit property';
+  renderImageThumbs(); renderVideoPreview(); window.scrollTo({top:0, behavior:'smooth'});
+}
+async function deleteListing(id){
+  if(!confirm('Delete this property? This cannot be undone.')) return;
+  if(id.startsWith('demo_')){ listings = listings.filter(l=>l.id!==id); renderAdminDashboard(); renderPublicSite(); return; }
+  if(!sb){ showToast("Site isn't connected to Supabase yet."); return; }
+  try{
+    const { error } = await sb.from('properties').delete().eq('id', id);
+    if(error) throw error;
+    showToast('Property deleted.');
+    await loadAll();
+    renderAdminDashboard(); renderPublicSite();
+  }catch(e){ showToast('Could not delete property — please try again.'); }
+}
+
+/* ---------------- STATS & HIGHLIGHTS TAB ---------------- */
+function statsTabHtml(){
+  return `
+    <div class="admin-panel">
+      <h3>"Why invest with us" highlights</h3>
+      <div class="form-grid">
+        ${highlights.map((h,i)=>`
+          <div class="form-field"><label>Card ${i+1} — Title</label><input id="h_title_${i}" type="text" value="${h.title}"/></div>
+          <div class="form-field full" style="margin-top:-8px;"><label>Card ${i+1} — Description</label><textarea id="h_desc_${i}" style="min-height:50px;">${h.description}</textarea></div>
+        `).join('')}
+      </div>
+      <div class="form-actions"><button class="btn-primary" onclick="saveHighlights()">Save highlights</button></div>
+    </div>`;
+}
+async function saveHighlights(){
+  if(!sb){ showToast("Site isn't connected to Supabase yet."); return; }
+  const updated = highlights.map((h,i)=>({
+    id: h.id,
+    title: document.getElementById(`h_title_${i}`).value.trim() || h.title,
+    description: document.getElementById(`h_desc_${i}`).value.trim() || h.description
+  }));
+  try{
+    for(const h of updated){
+      if(h.id){ const { error } = await sb.from('highlights').update({ title:h.title, description:h.description }).eq('id', h.id); if(error) throw error; }
+    }
+    showToast('Highlights updated.');
+    await loadAll();
+    renderPublicSite();
+  }catch(e){ showToast('Could not save highlights — please try again.'); }
+}
+
+/* ---------------- TEAM TAB ---------------- */
+function teamTabHtml(){
+  return `
+    <div class="admin-panel">
+      <h3 id="teamFormHeading">Add team member</h3>
+      <div class="form-grid">
+        <div class="form-field"><label>Name</label><input id="t_name" type="text" placeholder="e.g. Ramesh Deshmukh"/></div>
+        <div class="form-field"><label>Role</label><input id="t_role" type="text" placeholder="e.g. Founder & Director"/></div>
+        <div class="form-field full"><label>Short bio</label><textarea id="t_bio" placeholder="A line or two about them..."></textarea></div>
+        <div class="form-field full"><label>Photo</label>
+          <div class="media-box"><div>🧑 Upload a photo</div>
+            <input type="file" id="t_photo" accept="image/*" onchange="handleTeamPhoto(event)"/>
+            <div class="thumbs" id="teamPhotoThumb"></div>
+          </div>
+        </div>
+      </div>
+      <div class="form-actions"><button class="btn-primary" onclick="saveTeamMember()">Save member</button><button class="btn-warn" onclick="resetTeamForm()">Clear</button></div>
+    </div>
+    <div class="admin-panel">
+      <h3>Team members</h3>
+      ${team.length === 0 ? `<p style="color:var(--ink-soft);">No team members yet.</p>` : `
+      <table class="admin-table"><thead><tr><th></th><th>Name</th><th>Role</th><th>Actions</th></tr></thead>
+      <tbody>${team.map(t=>`<tr><td>${t.photo?`<img src="${t.photo}"/>`:''}</td><td>${t.name}</td><td>${t.role}</td>
+      <td class="row-actions"><button class="edit" onclick="editTeamMember('${t.id}')">Edit</button><button class="del" onclick="deleteTeamMember('${t.id}')">Delete</button></td></tr>`).join('')}</tbody></table>`}
+    </div>`;
+}
+function handleTeamPhoto(e){
+  const file = e.target.files[0]; if(!file) return;
+  if(!sb){ showToast("Site isn't connected to Supabase yet — can't upload photo."); e.target.value=''; return; }
+  const reader = new FileReader();
+  reader.onload = function(ev){
+    const img = new Image();
+    img.onload = async function(){
+      const canvas = document.createElement('canvas'); const maxW = 600; const scale = Math.min(1, maxW/img.width);
+      canvas.width = img.width*scale; canvas.height = img.height*scale;
+      canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+      canvas.toBlob(async (blob)=>{
+        showToast('Uploading photo…', 1500);
+        try{
+          const url = await uploadToStorage(blob, 'team', 'jpg');
+          pendingTeamPhoto = url;
+          renderTeamPhotoPreview();
+        }catch(err){ showToast('Photo upload failed — please try again.'); }
+      }, 'image/jpeg', 0.75);
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file); e.target.value='';
+}
+function renderTeamPhotoPreview(){
+  const el = document.getElementById('teamPhotoThumb'); if(!el) return;
+  el.innerHTML = pendingTeamPhoto ? `<div class="thumb"><img src="${pendingTeamPhoto}"/><button onclick="pendingTeamPhoto=null;renderTeamPhotoPreview();">✕</button></div>` : '';
+}
+function resetTeamForm(){
+  editingTeamId = null; pendingTeamPhoto = null;
+  ['t_name','t_role','t_bio'].forEach(id=>{ const el = document.getElementById(id); if(el) el.value=''; });
+  const h = document.getElementById('teamFormHeading'); if(h) h.textContent = 'Add team member';
+  renderTeamPhotoPreview();
+}
+async function saveTeamMember(){
+  const name = document.getElementById('t_name').value.trim();
+  const role = document.getElementById('t_role').value.trim();
+  if(!name || !role){ showToast('Please add at least a name and role.'); return; }
+  if(!sb){ showToast("Site isn't connected to Supabase yet."); return; }
+  const row = { name, role, bio: document.getElementById('t_bio').value.trim(), photo_url: pendingTeamPhoto };
+  try{
+    let error;
+    if(editingTeamId){ ({ error } = await sb.from('team_members').update(row).eq('id', editingTeamId)); }
+    else{ ({ error } = await sb.from('team_members').insert(row)); }
+    if(error) throw error;
+    showToast(editingTeamId ? 'Member updated.' : 'Member added.');
+    resetTeamForm();
+    await loadAll();
+    renderAdminDashboard(); renderPublicSite();
+  }catch(e){ showToast('Could not save team member — please try again.'); }
+}
+function editTeamMember(id){
+  const t = team.find(x=>x.id===id); if(!t) return;
+  editingTeamId = id; pendingTeamPhoto = t.photo || null;
+  document.getElementById('t_name').value = t.name; document.getElementById('t_role').value = t.role; document.getElementById('t_bio').value = t.bio || '';
+  document.getElementById('teamFormHeading').textContent = 'Edit team member';
+  renderTeamPhotoPreview();
+}
+async function deleteTeamMember(id){
+  if(!confirm('Remove this team member?')) return;
+  if(!sb){ showToast("Site isn't connected to Supabase yet."); return; }
+  try{
+    const { error } = await sb.from('team_members').delete().eq('id', id);
+    if(error) throw error;
+    showToast('Member removed.');
+    await loadAll();
+    renderAdminDashboard(); renderPublicSite();
+  }catch(e){ showToast('Could not remove member — please try again.'); }
+}
+
+/* ---------------- LEADS TAB ---------------- */
+function leadsTabHtml(){
+  if(leads.length === 0) return `<div class="admin-panel"><h3>Leads</h3><p style="color:var(--ink-soft);">No leads yet — enquiries and guide requests from the public site will show up here.</p></div>`;
+  return `<div class="admin-panel"><h3>Leads (${leads.length})</h3>
+    <table class="admin-table"><thead><tr><th>Type</th><th>Name</th><th>Phone</th><th>Email</th><th>Re: </th><th>Message</th><th>Date</th><th></th></tr></thead>
+    <tbody>${leads.map(l=>`<tr>
+      <td>${l.type === 'enquiry' ? 'Property Enquiry' : l.type === 'sell-inquiry' ? 'Sell Enquiry' : 'Consultation'}</td><td>${l.name}</td><td>${l.phone}</td><td>${l.email||'—'}</td>
+      <td>${l.ref||'—'}</td><td>${l.message||'—'}</td><td>${new Date(l.createdAt).toLocaleDateString('en-IN')}</td>
+      <td class="row-actions"><button class="del" onclick="deleteLead('${l.id}')">Delete</button></td>
+    </tr>`).join('')}</tbody></table></div>`;
+}
+async function deleteLead(id){
+  if(!sb){ showToast("Site isn't connected to Supabase yet."); return; }
+  try{
+    const { error } = await sb.from('leads').delete().eq('id', id);
+    if(error) throw error;
+    showToast('Lead removed.');
+    await loadAll();
+    renderAdminDashboard();
+  }catch(e){ showToast('Could not remove lead — please try again.'); }
+}
+
+/* ============================= DEMO SEED (only shows when no real listings exist) ============================= */
+function getDemoListing(){
+  return {
+    id:'demo_3bhk',
+    title:'Spacious 3BHK Apartment in Sector 12, Dwarka',
+    listingType:'sale',
+    propertyType:'Apartment',
+    price:9500000,
+    city:'New Delhi',
+    locality:'Sector 12, Dwarka',
+    bhk:3,
+    bathrooms:2,
+    area:1450,
+    description:'A well-ventilated 3BHK apartment in the heart of Sector 12, Dwarka — close to metro connectivity, schools, and daily markets. Ready-to-move-in, ideal for families looking for a well-established sector.',
+    amenities:['Covered Parking','Lift','Power Backup','24x7 Security',"Children's Play Area"],
+    tag:'trending',
+    images:[],
+    video:null,
+    isDemo:true,
+    createdAt:Date.now()
+  };
+}
+
+/* ============================= PUBLIC SITE RENDER ============================= */
+function renderPublicSite(){
+  renderHighlights(); renderTrending(); renderTeam();
+}
+
+/* ============================= INIT ============================= */
+async function init(){
+  await initSupabase();
+  await loadAll();
+  if(listings.length === 0){
+    listings = [getDemoListing()];
+    showToast('Showing a sample 3BHK listing — add your own via Admin to replace it.', 5000);
+  }
+  renderPublicSite();
+  setupReveal();
+  checkAdminUrl();
+}
+function checkAdminUrl(){
+  if(window.location.hash === '#admin'){
+    openAdminLogin();
+  }
+}
+window.addEventListener('hashchange', checkAdminUrl);
+init();
+</script>
+</body>
+</html>
