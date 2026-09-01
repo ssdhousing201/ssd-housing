@@ -224,11 +224,85 @@
   .sell-badge{ background:var(--sage); color:#fff; font-size:12.5px; font-weight:700; padding:9px 12px; border-radius:9px; margin-bottom:14px; text-align:center; }
 
   /* ---------- TEAM ---------- */
-    .team-card{ background:var(--card); border:1px solid var(--line); border-radius:18px; overflow:hidden; text-align:center; box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .15s ease; }
-  .team-card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-lift); }
-  .team-photo{ height:190px; background:var(--sand-dim); }
-  .team-photo img{ width:100%; height:100%; object-fit:cover; object-position: top center; }
-  .team-info{ padding:16px; }
+  /* ---------- TEAM CARDS ---------- */
+
+.team-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px;
+  align-items:start;
+}
+
+.team-card{
+  background:transparent;
+  border:none;
+  border-radius:0;
+  overflow:visible;
+  text-align:center;
+  box-shadow:none;
+  transition:transform .2s ease;
+}
+
+.team-card:hover{
+  transform:translateY(-5px);
+}
+
+/* PHOTO SECTION */
+.team-photo{
+  height:320px;
+  width:100%;
+  background:var(--sand-dim);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  border:1px solid var(--line);
+}
+
+.team-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center top;
+  display:block;
+  transition:transform .35s ease;
+}
+
+.team-card:hover .team-photo img{
+  transform:scale(1.03);
+}
+
+/* DETAILS — COMPLETELY SEPARATE FROM PHOTO */
+.team-info{
+  background:var(--card);
+  margin:12px 8px 0;
+  padding:17px 14px 18px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  box-shadow:var(--shadow);
+}
+
+.team-info h3{
+  font-family:'Fraunces',serif;
+  font-size:18px;
+  color:var(--navy);
+  margin:0 0 5px;
+}
+
+.team-info p{
+  margin:0;
+  font-size:12.5px;
+  color:var(--ink-soft);
+  line-height:1.5;
+}
+
+.team-info .team-role{
+  color:var(--marigold-deep);
+  font-weight:700;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  margin-bottom:5px;
+}
 
   /* ---------- LEAD MAGNET ---------- */
   .guide-band{ background: linear-gradient(135deg, var(--navy-deep), #16234A); padding:60px 24px; margin:60px 0; }
