@@ -223,85 +223,161 @@
   .sell-form textarea{ min-height:70px; resize:vertical; }
   .sell-badge{ background:var(--sage); color:#fff; font-size:12.5px; font-weight:700; padding:9px 12px; border-radius:9px; margin-bottom:14px; text-align:center; }
 
-  /* ---------- TEAM ---------- */
-  /* ---------- TEAM CARDS ---------- */
+/* ---------- PREMIUM TEAM SECTION ---------- */
 
 .team-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:24px;
+  grid-template-columns:repeat(4, minmax(0,1fr));
+  gap:28px;
   align-items:start;
 }
 
+/* Main team item */
 .team-card{
   background:transparent;
-  border:none;
+  border:0;
   border-radius:0;
   overflow:visible;
   text-align:center;
   box-shadow:none;
-  transition:transform .2s ease;
+  transition:transform .25s ease;
 }
 
 .team-card:hover{
-  transform:translateY(-5px);
+  transform:translateY(-6px);
 }
 
-/* PHOTO SECTION */
+/* ---------- PHOTO ---------- */
+
 .team-photo{
-  height:320px;
+  position:relative;
   width:100%;
+  height:340px;
   background:var(--sand-dim);
-  border-radius:18px;
+  border:1px solid var(--line);
+  border-radius:20px;
   overflow:hidden;
   box-shadow:var(--shadow);
-  border:1px solid var(--line);
 }
 
 .team-photo img{
   width:100%;
   height:100%;
+  display:block;
   object-fit:cover;
   object-position:center top;
-  display:block;
-  transition:transform .35s ease;
+  transition:transform .45s ease;
 }
 
 .team-card:hover .team-photo img{
-  transform:scale(1.03);
+  transform:scale(1.045);
 }
 
-/* DETAILS — COMPLETELY SEPARATE FROM PHOTO */
+/* subtle bottom gradient */
+.team-photo::after{
+  content:'';
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:70px;
+  background:linear-gradient(
+    to top,
+    rgba(15,24,48,.22),
+    transparent
+  );
+  pointer-events:none;
+}
+
+/* ---------- SEPARATE DETAILS CARD ---------- */
+
 .team-info{
+  position:relative;
+  z-index:2;
   background:var(--card);
-  margin:12px 8px 0;
-  padding:17px 14px 18px;
+  margin:-18px 10px 0;
+  padding:20px 16px 19px;
   border:1px solid var(--line);
-  border-radius:14px;
-  box-shadow:var(--shadow);
+  border-radius:16px;
+  box-shadow:0 10px 28px rgba(15,24,48,.10);
+}
+
+/* small gold line */
+.team-info::before{
+  content:'';
+  display:block;
+  width:34px;
+  height:3px;
+  margin:0 auto 12px;
+  border-radius:999px;
+  background:linear-gradient(
+    90deg,
+    var(--gold),
+    var(--marigold)
+  );
 }
 
 .team-info h3{
   font-family:'Fraunces',serif;
-  font-size:18px;
+  font-size:20px;
+  line-height:1.2;
   color:var(--navy);
-  margin:0 0 5px;
+  margin:0 0 6px;
+}
+
+.team-info .team-role{
+  display:block;
+  color:var(--marigold-deep);
+  font-size:10.5px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-bottom:9px;
 }
 
 .team-info p{
   margin:0;
-  font-size:12.5px;
   color:var(--ink-soft);
-  line-height:1.5;
+  font-size:12.5px;
+  line-height:1.6;
 }
 
-.team-info .team-role{
-  color:var(--marigold-deep);
-  font-weight:700;
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.06em;
-  margin-bottom:5px;
+/* ---------- TABLET ---------- */
+
+@media (max-width:980px){
+
+  .team-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:26px;
+  }
+
+  .team-photo{
+    height:330px;
+  }
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width:560px){
+
+  .team-grid{
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+
+  .team-photo{
+    height:380px;
+    border-radius:18px;
+  }
+
+  .team-info{
+    margin:-16px 14px 0;
+    padding:20px 18px;
+  }
+
+  .team-info h3{
+    font-size:21px;
+  }
 }
 
   /* ---------- LEAD MAGNET ---------- */
